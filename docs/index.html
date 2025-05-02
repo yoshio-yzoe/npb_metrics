@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>NPB Metrics Viewer</title>
+
+    <!-- DataTables CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.min.css"
+    />
+
+    <style>
+      body        { font-family: sans-serif; margin: 1rem 2rem; }
+      #controls   { margin-bottom: 1rem; }
+      select      { margin: 0 0.5rem 0 0.2rem; }
+      table.dataTable th,
+      table.dataTable td { white-space: nowrap; }
+    </style>
+  </head>
+
+  <body>
+    <h1>NPB Metrics Viewer</h1>
+
+    <div id="controls">
+      年:
+      <select id="year"></select>
+      チーム:
+      <select id="team"></select>
+    </div>
+
+    <table id="tbl" class="display" style="width:100%"></table>
+
+    <p id="update" style="margin-top:1rem;color:#666;font-size:.9rem"></p>
+
+    <!-- ① jQuery（integrity を最新値に更新 or 削除） -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"></script>
+
+    <!-- ② DataTables (v2) -->
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+
+    <!-- ③ アプリロジック -->
+    <script src="js/app.js"></script>
+  </body>
+</html>
