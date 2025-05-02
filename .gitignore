@@ -11,5 +11,4 @@ __pycache__/
 # OS 系
 .DS_Store
 # Poetry / Pipenv 生成物（任意）
-poetry.lock
 Pipfile.lock
