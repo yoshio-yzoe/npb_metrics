@@ -1,19 +1,12 @@
 # NPB_Metrics
 
-**NPB（日本プロ野球）公式戦のチーム／選手成績を  
-[Baseball-Reference](https://www.baseball-reference.com/) からスクレイピングし、  
-`pandas.DataFrame` で簡単に扱えるようにする Python ライブラリ**
+NPB（日本プロ野球）公式戦のチーム／選手成績を[Baseball-Reference](https://www.baseball-reference.com/) からスクレイピングし、  `pandas.DataFrame` で簡単に扱えるようにする Python ライブラリ
 
 
 
 ## 特長
-
 - **投手・打者のシーズン成績をワンライナーで取得**
-- DataFrame インデックスを `team / year / Name` で階層化 → 集計が容易
-- 依存は最小限：`requests` + `BeautifulSoup` + `pandas`
-- **Poetry ベース**で再現性の高い環境構築
-- MIT ライセンス（OSS 利用・商用利用可）
-
+- DataFrame インデックスを `team / year / Name` で階層化
 
 
 ## インストール
