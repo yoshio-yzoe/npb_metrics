@@ -1,0 +1,23 @@
+# .github/workflows/pages.yml
+name: Deploy Pages (no scraping)
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  pages: write
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with: { path: docs }
+      - name: Deploy
+        id: deploy
+        uses: actions/deploy-pages@v2
