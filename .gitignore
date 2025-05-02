@@ -1,0 +1,15 @@
+# .gitignore
+# ────────────────────
+# 仮想環境
+.venv/
+# キャッシュ
+__pycache__/
+*.py[cod]
+# IDE
+.vscode/
+.idea/
+# OS 系
+.DS_Store
+# Poetry / Pipenv 生成物（任意）
+poetry.lock
+Pipfile.lock
