@@ -1,23 +1,31 @@
-# .github/workflows/pages.yml
-name: Deploy Pages (no scraping)
+name: Deploy Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main]           # デプロイは main ブランチだけ
+  workflow_dispatch:           # 手動実行も可
 
 permissions:
-  pages: write
-  id-token: write
-  contents: read
+  contents: read               # checkout 用
+  pages: write                 # Pages へ書き込み
+  id-token: write              # OIDC for deploy
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
     steps:
+      # 1) ソース取得
       - uses: actions/checkout@v4
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with: { path: docs }
-      - name: Deploy
-        id: deploy
+
+      # 2) docs/ をまるごとアーティファクト化
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs           # 必ず docs フォルダを指す
+
+      # 3) デプロイ
+      - id: deploy
         uses: actions/deploy-pages@v2
