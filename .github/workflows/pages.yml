@@ -1,31 +1,22 @@
 name: Deploy Pages
-
 on:
   push:
-    branches: [main]           # デプロイは main ブランチだけ
-  workflow_dispatch:           # 手動実行も可
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
-  contents: read               # checkout 用
-  pages: write                 # Pages へ書き込み
-  id-token: write              # OIDC for deploy
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
-
     steps:
-      # 1) ソース取得
       - uses: actions/checkout@v4
 
-      # 2) docs/ をまるごとアーティファクト化
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: docs           # 必ず docs フォルダを指す
+          path: docs        # ← docs フォルダ
 
-      # 3) デプロイ
-      - id: deploy
-        uses: actions/deploy-pages@v2
+      - uses: actions/deploy-pages@v2   # ← id 指定も不要
