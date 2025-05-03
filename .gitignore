@@ -12,6 +12,3 @@ __pycache__/
 .DS_Store
 # Poetry / Pipenv 生成物（任意）
 Pipfile.lock
-# GitHub Pages build artifacts
-/docs/data/players.json
-/docs/last_update.txt

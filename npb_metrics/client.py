@@ -1,9 +1,26 @@
+
+
+"""
+共通 HTTP クライアント
+
+- requests-cache でレスポンスをローカル SQLite キャッシュ
+- User-Agent を統一
+"""
+
 from typing import Final
-import requests
+import requests_cache
 
-__all__ = ["session"]
+# ────────────────────────────────────────────────────────────
+# CachedSession の作成
+#   * cache_name="npb_cache" → ./npb_cache.sqlite が生成
+#   * expire_after=7 日
+# ────────────────────────────────────────────────────────────
+session: Final = requests_cache.CachedSession(
+    cache_name="npb_cache",
+    backend="sqlite",
+    expire_after=60 * 60 * 24 * 7,
+)
 
-session: Final[requests.Session] = requests.Session()
 session.headers.update(
     {
         "User-Agent": (
