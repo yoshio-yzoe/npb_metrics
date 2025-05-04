@@ -21,8 +21,8 @@ NPB（日本プロ野球）公式戦のチーム／選手成績を[Baseball-Refe
 ### 手順
 
 ```bash
-git clone https://github.com/yoshio-yzoe/NPB_Metrics.git
-cd NPB_Metrics
+git clone https://github.com/yoshio-yzoe/npb_metrics.git
+cd npb_metrics
 
 poetry install
 poetry shell
