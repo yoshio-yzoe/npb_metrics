@@ -51,7 +51,7 @@ print(
 2005~2024年までのデータを格納済み
 現在はチームと年を選択可能です。
 
-思考時間: 1 秒
+yoshio-yzoe.github.io/npb_metrics/
 
 
 ## How to use
