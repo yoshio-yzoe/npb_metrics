@@ -1,31 +1,43 @@
-# .github/workflows/pages.yml
 name: Deploy Pages
-
 on:
   push:
-    branches: [main]          # 公開したいブランチ
+    branches: [main]
   workflow_dispatch:
 
 permissions:
-  contents: read              # checkout
-  pages: write                # デプロイ
-  id-token: write             # OIDC
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false   # 同一ブランチの同時デプロイ衝突を防止
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    # ───────────────────────────────
+    # environment をここで宣言
+    # 「github-pages」という名前は固定
+    # URL には deploy ステップの outputs.page_url を反映
+    # ───────────────────────────────
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
     steps:
       # 1. リポジトリ取得
       - uses: actions/checkout@v4
 
-      # 2. Pages 用の環境・Build ID を設定（必須）
+      # 2. Pages 用設定 (必須)
       - uses: actions/configure-pages@v3
 
-      # 3. docs/ をアーティファクト化（自動で名前 github-pages）
+      # 3. docs/ → artifact: github-pages
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: docs           # <-- ここはあなたの静的サイトフォルダ
+          path: docs
 
       # 4. デプロイ
-      - uses: actions/deploy-pages@v4
+      - id: deploy
+        uses: actions/deploy-pages@v4
