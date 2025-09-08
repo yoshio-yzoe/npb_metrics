@@ -1,13 +1,23 @@
 // docs/js/app.js
 async function main() {
     // ---------- 1. データ取得 ----------
-    const [allPlayers, batterData, pitcherData, meta] = await Promise.all([
-      fetch("data/all_players.json").then((r) => r.json()),
-      fetch("data/batter.json").then((r) => r.json()),
-      fetch("data/pitcher.json").then((r) => r.json()),
-      fetch("last_update.txt").then((r) => r.text()).catch(() => ""),
-    ]);
-    document.getElementById("update").textContent = meta.trim();
+    try {
+      const [allPlayers, batterData, pitcherData, meta] = await Promise.all([
+        fetch("data/all_players.json").then((r) => {
+          if (!r.ok) throw new Error(`Failed to fetch all_players.json: ${r.status}`);
+          return r.json();
+        }),
+        fetch("data/batter.json").then((r) => {
+          if (!r.ok) throw new Error(`Failed to fetch batter.json: ${r.status}`);
+          return r.json();
+        }),
+        fetch("data/pitcher.json").then((r) => {
+          if (!r.ok) throw new Error(`Failed to fetch pitcher.json: ${r.status}`);
+          return r.json();
+        }),
+        fetch("last_update.txt").then((r) => r.text()).catch(() => ""),
+      ]);
+      document.getElementById("update").textContent = meta.trim();
   
     let currentData = allPlayers;
     let table = null;
@@ -88,6 +98,16 @@ async function main() {
     setupSelects();
     initTable();
     refresh();
+    } catch (error) {
+      console.error("Failed to load data:", error);
+      document.getElementById("update").textContent = "データの読み込みに失敗しました";
+      // エラー表示用のHTML要素があればそこにも表示
+      const errorEl = document.getElementById("error-message");
+      if (errorEl) {
+        errorEl.textContent = `エラー: ${error.message}`;
+        errorEl.style.display = "block";
+      }
+    }
   }
   
   main();

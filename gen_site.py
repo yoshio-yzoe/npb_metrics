@@ -70,13 +70,21 @@ def main() -> None:
 
     
     # 投手
-    df_pitch = scrape_pitchers(years)
-    write_json(df_pitch, PITCHER_JSON, append=args.append)
+    try:
+        df_pitch = scrape_pitchers(years)
+        write_json(df_pitch, PITCHER_JSON, append=args.append)
+    except Exception as e:
+        print(f"❌ Failed to scrape pitchers: {e}")
+        return
     
 
     # 打者
-    df_bat = scrape_batters(years)
-    write_json(df_bat, BATTER_JSON, append=args.append)
+    try:
+        df_bat = scrape_batters(years)
+        write_json(df_bat, BATTER_JSON, append=args.append)
+    except Exception as e:
+        print(f"❌ Failed to scrape batters: {e}")
+        return
 
     
     # 結合
